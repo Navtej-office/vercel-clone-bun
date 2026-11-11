@@ -55,4 +55,8 @@ describe("objectKeyFor",()=>{
    it("never produces a double slash, even with extra leading slashes", () => {
     expect(objectKeyFor(ID, "//assets/app.js")).toBe(`dist/${ID}/assets/app.js`);
   });
+
+  it("serves index.html for the root path", () => {
+    expect(objectKeyFor(ID, "/")).toBe(`dist/${ID}/index.html`);
+  });
 })
