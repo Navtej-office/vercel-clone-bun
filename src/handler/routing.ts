@@ -37,5 +37,6 @@ export function contentTypeFor(path: string): string {
 
 export function objectKeyFor(id: string, urlPath: string): string | null {
   const path = urlPath.replace(/^\/+/, "");
+  if (path.split("/").includes("..")) return null;
   return `dist/${id}/${path === "" ? "index.html" : path}`;
 }

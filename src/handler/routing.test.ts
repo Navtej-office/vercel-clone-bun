@@ -59,4 +59,9 @@ describe("objectKeyFor",()=>{
   it("serves index.html for the root path", () => {
     expect(objectKeyFor(ID, "/")).toBe(`dist/${ID}/index.html`);
   });
+
+   it("rejects paths that climb out of the deployment folder", () => {
+    expect(objectKeyFor(ID, "/../secret")).toBeNull();
+    expect(objectKeyFor(ID, "/assets/../../other")).toBeNull();
+  });
 })
