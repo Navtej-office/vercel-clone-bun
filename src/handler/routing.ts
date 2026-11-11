@@ -36,8 +36,16 @@ export function contentTypeFor(path: string): string {
 
 
 export function objectKeyFor(id: string, urlPath: string): string | null {
-  const decoded = decodeURIComponent(urlPath);
+  let decoded: string;
+  try {
+    decoded = decodeURIComponent(urlPath);
+  } catch {
+    return null; // malformed percent-encoding
+  }
+
   const path = decoded.replace(/^\/+/, "");
+  // Checked AFTER decoding, so "%2e%2e" cannot sneak past. Only a whole ".." segment counts.
   if (path.split("/").includes("..")) return null;
+
   return `dist/${id}/${path === "" ? "index.html" : path}`;
 }
