@@ -35,7 +35,7 @@ export function contentTypeFor(path: string): string {
 }
 
 
-export function objectKeyFor(id:string,path:string):string|null{
-  return `dist/${id}${path}`;
-
+export function objectKeyFor(id: string, urlPath: string): string | null {
+  const path = urlPath.replace(/^\/+/, "");
+  return `dist/${id}/${path}`;
 }

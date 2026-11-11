@@ -51,4 +51,8 @@ describe("objectKeyFor",()=>{
   it("maps a normal path under the deployment folder",()=>{
     expect(objectKeyFor(ID, "/assets/app.js")).toBe(`dist/${ID}/assets/app.js`);
   })
+
+   it("never produces a double slash, even with extra leading slashes", () => {
+    expect(objectKeyFor(ID, "//assets/app.js")).toBe(`dist/${ID}/assets/app.js`);
+  });
 })
