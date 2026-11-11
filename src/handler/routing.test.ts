@@ -68,4 +68,10 @@ describe("objectKeyFor",()=>{
     it("allows file names that merely contain two dots", () => {
     expect(objectKeyFor(ID, "/my..file.js")).toBe(`dist/${ID}/my..file.js`);
   });
+
+  it("rejects an encoded climb, in either case", () => {
+    expect(objectKeyFor(ID, "/%2e%2e/secret")).toBeNull();
+    expect(objectKeyFor(ID, "/%2E%2E/secret")).toBeNull();
+    expect(objectKeyFor(ID, "/assets/%2e%2e/%2e%2e/other")).toBeNull();
+  });
 })
