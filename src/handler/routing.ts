@@ -3,29 +3,13 @@ import { posix } from "node:path";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
-
-export function deploymentIdFromHost(host:string):string|null{
-  if(!host.includes(".")){
+export function deploymentIdFromHost(host: string): string | null {
+  if (!host.includes(".")) {
     return null;
   }
-  const label=host.split(".")[0]??"";
-  return UUID.test(label) ? label:null;
+  const label = host.split(".")[0] ?? "";
+  return UUID.test(label) ? label : null;
 }
-
-export function objectKeyFor(id:string,urlPath:string){
-
-  let decoded:string;
-
-  try{
-    decoded=decodeURIComponent(urlPath);
-  }
-
-  catch(e){
-    console.log(error);
-  }
-}
-
-
 const TYPES: Record<string, string> = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
@@ -48,4 +32,10 @@ const TYPES: Record<string, string> = {
 
 export function contentTypeFor(path: string): string {
   return TYPES[posix.extname(path).toLowerCase()] ?? "application/octet-stream";
+}
+
+
+export function objectKeyFor(id:string,path:string):string|null{
+  return `dist/${id}${path}`;
+
 }

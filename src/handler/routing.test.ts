@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { contentTypeFor, deploymentIdFromHost } from "./routing";
+import { contentTypeFor, deploymentIdFromHost, objectKeyFor } from "./routing";
 import { cloneSourceFileData } from "typescript/unstable/ast";
 const ID = "d82570e3-aa32-47b7-a90d-31253501bae6";
 
@@ -43,3 +43,12 @@ describe("contentTypeFor", () => {
     expect(contentTypeFor("README")).toBe("application/octet-stream");
   });
 });
+
+
+
+describe("objectKeyFor",()=>{
+
+  it("maps a normal path under the deployment folder",()=>{
+    expect(objectKeyFor(ID, "/assets/app.js")).toBe(`dist/${ID}/assets/app.js`);
+  })
+})
