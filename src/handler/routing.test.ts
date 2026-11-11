@@ -64,4 +64,8 @@ describe("objectKeyFor",()=>{
     expect(objectKeyFor(ID, "/../secret")).toBeNull();
     expect(objectKeyFor(ID, "/assets/../../other")).toBeNull();
   });
+
+    it("allows file names that merely contain two dots", () => {
+    expect(objectKeyFor(ID, "/my..file.js")).toBe(`dist/${ID}/my..file.js`);
+  });
 })
